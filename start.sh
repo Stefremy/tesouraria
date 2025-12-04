@@ -5,9 +5,11 @@ set -e
 
 echo "🚀 Starting Tesouraria application..."
 
-# Load environment variables
+# Load environment variables safely
 if [ -f .env ]; then
-    export $(cat .env | grep -v '^#' | xargs)
+    set -a
+    source .env
+    set +a
 fi
 
 # Set default port if not specified

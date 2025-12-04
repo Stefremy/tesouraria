@@ -54,5 +54,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8080/health').read()" || exit 1
 
-# Default command - can be overridden
-CMD if [ -f start.sh ]; then ./start.sh; elif [ -f main.py ]; then python main.py; elif [ -f app.py ]; then python app.py; elif [ -f server.js ]; then node server.js; elif [ -f index.js ]; then node index.js; elif [ -f simple_server.py ]; then python simple_server.py; else echo "No entry point found. Please specify CMD in docker run or add start.sh"; exit 1; fi
+# Default command - uses start.sh if available, otherwise tries common entry points
+CMD ["sh", "-c", "if [ -f start.sh ]; then ./start.sh; elif [ -f main.py ]; then python main.py; elif [ -f app.py ]; then python app.py; elif [ -f server.js ]; then node server.js; elif [ -f index.js ]; then node index.js; elif [ -f simple_server.py ]; then python simple_server.py; else echo 'No entry point found. Please specify CMD or add start.sh'; exit 1; fi"]
