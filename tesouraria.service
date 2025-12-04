@@ -1,0 +1,23 @@
+[Unit]
+Description=Tesouraria Personal Finance Application
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/tesouraria
+Environment="PATH=/var/www/tesouraria/venv/bin"
+EnvironmentFile=/var/www/tesouraria/.env
+ExecStart=/var/www/tesouraria/start.sh
+Restart=always
+RestartSec=10
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/tesouraria/data
+
+[Install]
+WantedBy=multi-user.target
