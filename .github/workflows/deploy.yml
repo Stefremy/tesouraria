@@ -7,9 +7,14 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       
@@ -50,6 +55,9 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -81,6 +89,8 @@ jobs:
   deploy-heroku:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.HEROKU_API_KEY != ''
     steps:
       - uses: actions/checkout@v4
@@ -96,6 +106,8 @@ jobs:
   deploy-railway:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.RAILWAY_TOKEN != ''
     steps:
       - uses: actions/checkout@v4
@@ -112,6 +124,8 @@ jobs:
   deploy-vercel:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.VERCEL_TOKEN != ''
     steps:
       - uses: actions/checkout@v4
