@@ -205,7 +205,7 @@ class TestFinanceManager(unittest.TestCase):
         """Clean up test fixtures."""
         try:
             os.unlink(self.temp_file.name)
-        except:
+        except (OSError, FileNotFoundError):
             pass
     
     def test_initial_categories_created(self):

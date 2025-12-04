@@ -51,7 +51,7 @@ class Transaction:
         Args:
             date: Transaction date
             description: Transaction description
-            amount: Transaction amount (positive for income, positive for expense)
+            amount: Transaction amount (stored as positive value; transaction_type determines if added/subtracted)
             category: Category name
             transaction_type: Either 'income' or 'expense'
             account: Account name
