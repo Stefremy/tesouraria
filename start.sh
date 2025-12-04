@@ -20,6 +20,9 @@ if [ -f main.py ]; then
 elif [ -f app.py ]; then
     echo "Starting Python application (app.py)..."
     python app.py
+elif [ -f simple_server.py ]; then
+    echo "Starting simple Python HTTP server..."
+    python simple_server.py
 elif [ -f manage.py ]; then
     echo "Starting Django application..."
     python manage.py runserver 0.0.0.0:$PORT
@@ -34,6 +37,6 @@ elif [ -f package.json ]; then
     npm start
 else
     echo "❌ No entry point found!"
-    echo "Please create one of: main.py, app.py, server.js, index.js"
+    echo "Please create one of: main.py, app.py, simple_server.py, server.js, index.js"
     exit 1
 fi
