@@ -1,0 +1,16 @@
+# Render deployment configuration for Tesouraria
+# This file is used by Render.com for automatic deployments
+
+services:
+  - type: web
+    name: tesouraria
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /health
+    autoDeploy: true
